@@ -55,6 +55,14 @@ router.get("/filter", async (req, res, next) => {
   }
 });
 
+router.get("/filter/best", async (req, res, next) => {
+  try {
+    const customers = await Customer.topCustomers(req.query.name);
+    return res.render("customer_list_top.html", { customers });
+  } catch (error) {
+    return next(error);
+  }
+});
 /** Show a customer, given their ID. */
 
 router.get("/:id/", async function (req, res, next) {
