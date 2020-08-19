@@ -82,18 +82,14 @@ class Customer {
 
   static async search(name) {
     let names = name.split(" ");
-    console.log("%" + names[0].toLowerCase().concat("%"));
     if (names.length > 1) {
       const results = await db.query(
         `SELECT first_name AS "firstName",  
          last_name AS "lastName", 
          phone, 
          notes 
-         FROM customers WHERE lower(first_name) LIKE $1 AND lower(last_name) LIKE $2 OR lower(last_name) LIKE $1 AND lower(first_name) LIKE $2`,
-        [
-          "%" + names[0].toLowerCase().concat("%"),
-          "%" + names[1].toLowerCase().concat("%"),
-        ]
+         FROM customers WHERE first_name ILIKE $1 AND last_name ILIKE $2 OR last_name ILIKE $1 AND first_name ILIKE $2`,
+        ["%" + names[0] + "%", "%" + names[1] + "%"]
       );
       return results.rows.map((c) => new Customer(c));
     } else {
@@ -102,8 +98,8 @@ class Customer {
          last_name AS "lastName", 
          phone, 
          notes 
-         FROM customers WHERE lower(first_name) LIKE $1 OR lower(last_name) LIKE $1`,
-        ["%" + names[0].toLowerCase().concat("%")]
+         FROM customers WHERE first_name ILIKE $1 OR last_name ILIKE $1`,
+        ["%" + names[0] + "%"]
       );
       return results.rows.map((c) => new Customer(c));
     }
