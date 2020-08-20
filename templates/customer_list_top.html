@@ -6,7 +6,7 @@
 
 <h1>Customers with Most Reservations</h1>
 
-<ol style="column-count: 4">
+<ol>
   {% for customer in customers %}
   <li><a href="/{{ customer.id }}/">{{ customer.fullName }}</a></li>
   {% endfor %}

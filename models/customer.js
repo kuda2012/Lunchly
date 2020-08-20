@@ -84,7 +84,7 @@ class Customer {
     let names = name.split(" ");
     if (names.length > 1) {
       const results = await db.query(
-        `SELECT first_name AS "firstName",  
+        `SELECT id, first_name AS "firstName",  
          last_name AS "lastName", 
          phone, 
          notes 
@@ -94,7 +94,7 @@ class Customer {
       return results.rows.map((c) => new Customer(c));
     } else {
       const results = await db.query(
-        `SELECT first_name AS "firstName",  
+        `SELECT id, first_name AS "firstName",  
          last_name AS "lastName", 
          phone, 
          notes 

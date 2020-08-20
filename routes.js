@@ -12,7 +12,6 @@ const router = new express.Router();
 router.get("/", async function (req, res, next) {
   try {
     const customers = await Customer.all();
-    console.log(customers);
     return res.render("customer_list.html", { customers });
   } catch (err) {
     return next(err);
